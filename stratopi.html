@@ -1,0 +1,32 @@
+<script type="text/javascript">
+  $.getScript("resources/node-red-contrib-sfera-labs-commons/slcommons-client.js",
+    function() {
+      slDefineNode('stratopi', 'Strato Pi', '#E9967A', 'sferalabs-strato-pi.png');
+    }
+  );
+</script>
+
+<script id="sl-commons-template" type="text/javascript" data-template-name="stratopi">
+  $(function(){
+    $("#sl-commons-template").load("resources/node-red-contrib-sfera-labs-commons/slcommons-client-template.html");
+  });
+</script>
+
+<script id="sl-commons-help" type="text/javascript" data-help-name="stratopi">
+  $(function() {
+    var product = "Strato Pi"
+    var githubK = "https://github.com/sfera-labs/strato-pi-kernel-module"
+    var githubNR = "https://github.com/sfera-labs/node-red-contrib-sfera-labs-strato-pi"
+
+    var help = $("#sl-commons-help");
+    help.load("resources/node-red-contrib-sfera-labs-commons/slcommons-client-help.html",
+      function() {
+        var helpHtml = help.html()
+            .replaceAll("[[sl-commons-help-product]]", product)
+            .replaceAll("[[sl-commons-help-github-kernel]]", githubK)
+            .replaceAll("[[sl-commons-help-github-nodered]]", githubNR);
+        help.html(helpHtml);
+      }
+    );
+  });
+</script>

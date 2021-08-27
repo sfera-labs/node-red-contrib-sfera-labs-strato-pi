@@ -1,0 +1,254 @@
+[
+    {
+        "id": "886356a732d7b1ac",
+        "type": "tab",
+        "label": "Strato Pi Example",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "10f2f74372a82a6a",
+        "type": "ionopi",
+        "z": "886356a732d7b1ac",
+        "name": "",
+        "file": "r:analog_in/ai1_mv",
+        "outputs": 1,
+        "x": 500,
+        "y": 120,
+        "wires": [
+            [
+                "20706ea3b589dd30"
+            ]
+        ]
+    },
+    {
+        "id": "ec6f3c0a6e6c7e0d",
+        "type": "inject",
+        "z": "886356a732d7b1ac",
+        "name": "Trigger read every 300ms",
+        "props": [],
+        "repeat": "0.3",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 180,
+        "y": 120,
+        "wires": [
+            [
+                "10f2f74372a82a6a",
+                "af10b1702d8c772f",
+                "2f9640b628a3bc03"
+            ]
+        ]
+    },
+    {
+        "id": "20706ea3b589dd30",
+        "type": "debug",
+        "z": "886356a732d7b1ac",
+        "name": "Show value",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 730,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "af10b1702d8c772f",
+        "type": "ionopi",
+        "z": "886356a732d7b1ac",
+        "name": "",
+        "file": "r:analog_in/ai2_mv",
+        "outputs": 1,
+        "x": 500,
+        "y": 180,
+        "wires": [
+            [
+                "392eef7d19fd625b"
+            ]
+        ]
+    },
+    {
+        "id": "392eef7d19fd625b",
+        "type": "debug",
+        "z": "886356a732d7b1ac",
+        "name": "Show value",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 730,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "af371cb9c3a0b803",
+        "type": "inject",
+        "z": "886356a732d7b1ac",
+        "name": "Write 'F' (flip) every second",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "F",
+        "payloadType": "str",
+        "x": 180,
+        "y": 40,
+        "wires": [
+            [
+                "6fe5569d666ffedc"
+            ]
+        ]
+    },
+    {
+        "id": "6fe5569d666ffedc",
+        "type": "ionopi",
+        "z": "886356a732d7b1ac",
+        "name": "",
+        "file": "rw:led/status",
+        "outputs": 1,
+        "x": 470,
+        "y": 40,
+        "wires": [
+            [
+                "170b36b65bed8bb1"
+            ]
+        ]
+    },
+    {
+        "id": "170b36b65bed8bb1",
+        "type": "debug",
+        "z": "886356a732d7b1ac",
+        "name": "Show value",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 730,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "2f9640b628a3bc03",
+        "type": "ionopi",
+        "z": "886356a732d7b1ac",
+        "name": "",
+        "file": "r:digital_in/di6_deb_on_cnt",
+        "outputs": 1,
+        "x": 520,
+        "y": 300,
+        "wires": [
+            [
+                "e09eed3ec9b3117d",
+                "3167b4258b77c227"
+            ]
+        ]
+    },
+    {
+        "id": "e09eed3ec9b3117d",
+        "type": "debug",
+        "z": "886356a732d7b1ac",
+        "name": "Show value",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 790,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "3167b4258b77c227",
+        "type": "rbe",
+        "z": "886356a732d7b1ac",
+        "name": "",
+        "func": "deadbandEq",
+        "gap": "5",
+        "start": "",
+        "inout": "out",
+        "septopics": false,
+        "property": "payload",
+        "topi": "topic",
+        "x": 790,
+        "y": 300,
+        "wires": [
+            [
+                "3d5e28fd51155353"
+            ]
+        ]
+    },
+    {
+        "id": "3d5e28fd51155353",
+        "type": "change",
+        "z": "886356a732d7b1ac",
+        "name": "Write 'F' (flip)",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "F",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 970,
+        "y": 300,
+        "wires": [
+            [
+                "e59643c34417e46d"
+            ]
+        ]
+    },
+    {
+        "id": "e59643c34417e46d",
+        "type": "ionopi",
+        "z": "886356a732d7b1ac",
+        "name": "",
+        "file": "rw:relay/o1",
+        "outputs": 1,
+        "x": 1170,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1527c873622436cb",
+        "type": "comment",
+        "z": "886356a732d7b1ac",
+        "name": "Switch O1 every 5 times DI6 goes high",
+        "info": "",
+        "x": 530,
+        "y": 260,
+        "wires": []
+    }
+]
