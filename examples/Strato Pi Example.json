@@ -7,38 +7,27 @@
         "info": ""
     },
     {
-        "id": "10f2f74372a82a6a",
-        "type": "ionopi",
-        "z": "886356a732d7b1ac",
-        "name": "",
-        "file": "r:analog_in/ai1_mv",
-        "outputs": 1,
-        "x": 500,
-        "y": 120,
-        "wires": [
-            [
-                "20706ea3b589dd30"
-            ]
-        ]
-    },
-    {
         "id": "ec6f3c0a6e6c7e0d",
         "type": "inject",
         "z": "886356a732d7b1ac",
-        "name": "Trigger read every 300ms",
-        "props": [],
-        "repeat": "0.3",
+        "name": "Write 'F' (flip) every 5 seconds",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "5",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "x": 180,
-        "y": 120,
+        "payload": "F",
+        "payloadType": "str",
+        "x": 170,
+        "y": 300,
         "wires": [
             [
-                "10f2f74372a82a6a",
-                "af10b1702d8c772f",
-                "2f9640b628a3bc03"
+                "f71118bf177c43eb"
             ]
         ]
     },
@@ -55,79 +44,32 @@
         "targetType": "msg",
         "statusVal": "payload",
         "statusType": "auto",
-        "x": 730,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "af10b1702d8c772f",
-        "type": "ionopi",
-        "z": "886356a732d7b1ac",
-        "name": "",
-        "file": "r:analog_in/ai2_mv",
-        "outputs": 1,
-        "x": 500,
-        "y": 180,
-        "wires": [
-            [
-                "392eef7d19fd625b"
-            ]
-        ]
-    },
-    {
-        "id": "392eef7d19fd625b",
-        "type": "debug",
-        "z": "886356a732d7b1ac",
-        "name": "Show value",
-        "active": true,
-        "tosidebar": false,
-        "console": false,
-        "tostatus": true,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "payload",
-        "statusType": "auto",
-        "x": 730,
-        "y": 180,
+        "x": 750,
+        "y": 300,
         "wires": []
     },
     {
         "id": "af371cb9c3a0b803",
         "type": "inject",
         "z": "886356a732d7b1ac",
-        "name": "Write 'F' (flip) every second",
+        "name": "Write '1' on start",
         "props": [
             {
                 "p": "payload"
             }
         ],
-        "repeat": "1",
+        "repeat": "",
         "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
+        "once": true,
+        "onceDelay": "1",
         "topic": "",
-        "payload": "F",
+        "payload": "1",
         "payloadType": "str",
-        "x": 180,
-        "y": 40,
+        "x": 130,
+        "y": 160,
         "wires": [
             [
-                "6fe5569d666ffedc"
-            ]
-        ]
-    },
-    {
-        "id": "6fe5569d666ffedc",
-        "type": "ionopi",
-        "z": "886356a732d7b1ac",
-        "name": "",
-        "file": "rw:led/status",
-        "outputs": 1,
-        "x": 470,
-        "y": 40,
-        "wires": [
-            [
-                "170b36b65bed8bb1"
+                "a14f97e1f21d17a5"
             ]
         ]
     },
@@ -144,28 +86,58 @@
         "targetType": "msg",
         "statusVal": "payload",
         "statusType": "auto",
-        "x": 730,
-        "y": 40,
+        "x": 710,
+        "y": 160,
         "wires": []
     },
     {
-        "id": "2f9640b628a3bc03",
-        "type": "ionopi",
+        "id": "a14f97e1f21d17a5",
+        "type": "stratopi",
         "z": "886356a732d7b1ac",
         "name": "",
-        "file": "r:digital_in/di6_deb_on_cnt",
+        "file": "rw:watchdog/enabled",
         "outputs": 1,
-        "x": 520,
-        "y": 300,
+        "x": 430,
+        "y": 160,
         "wires": [
             [
-                "e09eed3ec9b3117d",
-                "3167b4258b77c227"
+                "170b36b65bed8bb1"
             ]
         ]
     },
     {
-        "id": "e09eed3ec9b3117d",
+        "id": "f71118bf177c43eb",
+        "type": "stratopi",
+        "z": "886356a732d7b1ac",
+        "name": "",
+        "file": "rw:watchdog/heartbeat",
+        "outputs": 1,
+        "x": 490,
+        "y": 300,
+        "wires": [
+            [
+                "20706ea3b589dd30"
+            ]
+        ]
+    },
+    {
+        "id": "243575970847ced6",
+        "type": "stratopi",
+        "z": "886356a732d7b1ac",
+        "name": "",
+        "file": "r:watchdog/expired",
+        "outputs": 1,
+        "x": 500,
+        "y": 500,
+        "wires": [
+            [
+                "073aa8a44f21defc",
+                "fa411534cc14f9d2"
+            ]
+        ]
+    },
+    {
+        "id": "073aa8a44f21defc",
         "type": "debug",
         "z": "886356a732d7b1ac",
         "name": "Show value",
@@ -177,41 +149,158 @@
         "targetType": "msg",
         "statusVal": "payload",
         "statusType": "auto",
-        "x": 790,
-        "y": 360,
+        "x": 750,
+        "y": 500,
         "wires": []
     },
     {
-        "id": "3167b4258b77c227",
-        "type": "rbe",
+        "id": "f36d052f3c9e6bdb",
+        "type": "inject",
         "z": "886356a732d7b1ac",
-        "name": "",
-        "func": "deadbandEq",
-        "gap": "5",
-        "start": "",
-        "inout": "out",
-        "septopics": false,
-        "property": "payload",
-        "topi": "topic",
-        "x": 790,
-        "y": 300,
+        "name": "Trigger read every second",
+        "props": [],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 180,
+        "y": 500,
         "wires": [
             [
-                "3d5e28fd51155353"
+                "243575970847ced6"
             ]
         ]
     },
     {
-        "id": "3d5e28fd51155353",
+        "id": "a941c81929cde66d",
+        "type": "inject",
+        "z": "886356a732d7b1ac",
+        "name": "Trigger read on start",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payloadType": "str",
+        "x": 140,
+        "y": 40,
+        "wires": [
+            [
+                "1b0cf4276c6e6bcd"
+            ]
+        ]
+    },
+    {
+        "id": "1b0cf4276c6e6bcd",
+        "type": "stratopi",
+        "z": "886356a732d7b1ac",
+        "name": "",
+        "file": "r:mcu/fw_version",
+        "outputs": 1,
+        "x": 420,
+        "y": 40,
+        "wires": [
+            [
+                "1434aaef5a81d6ca"
+            ]
+        ]
+    },
+    {
+        "id": "1434aaef5a81d6ca",
+        "type": "debug",
+        "z": "886356a732d7b1ac",
+        "name": "Show value",
+        "active": true,
+        "tosidebar": false,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "payload",
+        "statusType": "auto",
+        "x": 710,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "adc3327f5c2949a1",
+        "type": "comment",
+        "z": "886356a732d7b1ac",
+        "name": "Enable watchdog on start",
+        "info": "",
+        "x": 130,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "cce2e5abfca39bb9",
+        "type": "comment",
+        "z": "886356a732d7b1ac",
+        "name": "Send heartbeat to watchdog. If this stops running, the watchdog will timeout will expire",
+        "info": "",
+        "x": 320,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "eae8ca93929a51b3",
+        "type": "comment",
+        "z": "886356a732d7b1ac",
+        "name": "When the watchdog timeout expires, Strato Pi will start the power-cycle sequence",
+        "info": "",
+        "x": 330,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "fa411534cc14f9d2",
+        "type": "switch",
+        "z": "886356a732d7b1ac",
+        "name": "if equals 1 (expired)",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 230,
+        "y": 580,
+        "wires": [
+            [
+                "791ef99fac269618"
+            ]
+        ]
+    },
+    {
+        "id": "8dae0a5308fed3b7",
+        "type": "stratopi",
+        "z": "886356a732d7b1ac",
+        "name": "",
+        "file": "w:buzzer/beep",
+        "outputs": 0,
+        "x": 730,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "791ef99fac269618",
         "type": "change",
         "z": "886356a732d7b1ac",
-        "name": "Write 'F' (flip)",
+        "name": "Send '100' (100ms beep)",
         "rules": [
             {
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "F",
+                "to": "100",
                 "tot": "str"
             }
         ],
@@ -220,35 +309,22 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 970,
-        "y": 300,
+        "x": 470,
+        "y": 580,
         "wires": [
             [
-                "e59643c34417e46d"
+                "8dae0a5308fed3b7"
             ]
         ]
     },
     {
-        "id": "e59643c34417e46d",
-        "type": "ionopi",
-        "z": "886356a732d7b1ac",
-        "name": "",
-        "file": "rw:relay/o1",
-        "outputs": 1,
-        "x": 1170,
-        "y": 300,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "1527c873622436cb",
+        "id": "5a012c34914f06ec",
         "type": "comment",
         "z": "886356a732d7b1ac",
-        "name": "Switch O1 every 5 times DI6 goes high",
+        "name": "Break this link and deploy to see the effect",
         "info": "",
-        "x": 530,
-        "y": 260,
+        "x": 320,
+        "y": 340,
         "wires": []
     }
 ]
